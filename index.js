@@ -28,7 +28,10 @@ mongoose.connect(process.env.MONGO_URL, {
 
 app.use('/auth', AuthRoutes);
 app.use('/user', UserRoutes);
-app.use('/post', PostRoutes)
+app.use('/post', PostRoutes);
+app.get('/', (req, res) => {
+  res.json("application is working")
+})
 
 
 
