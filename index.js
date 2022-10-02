@@ -7,6 +7,9 @@ import AuthRoutes from "./routes/AuthRoute.js";
 import UserRoutes from "./routes/UserRoutes.js";
 import PostRoutes from "./routes/PostRoutes.js";
 import UploadRoute from "./routes/UploadRoute.js";
+import ChatRoute from "./routes/ChatRoute.js";
+import MessageRoute from "./routes/MessageRoute.js"
+
 
 dotenv.config();
 const app = express();
@@ -37,6 +40,9 @@ app.use("/auth", AuthRoutes);
 app.use("/user", UserRoutes);
 app.use("/posts", PostRoutes);
 app.use("/upload", UploadRoute);
+app.use("/chat", ChatRoute);
+app.use("/message", MessageRoute);
+
 app.get("/", (req, res) => {
   res.json("application is working");
 });
