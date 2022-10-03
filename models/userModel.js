@@ -23,8 +23,14 @@ const UserSchema = mongoose.Schema(
       type: Boolean,
       default: false,
     },
-    profilePicture: String,
-    coverPicture: String,
+    profilePicture: {
+      type: String,
+      default: "defaultProfile.png",
+    },
+    coverPicture: {
+      type: String,
+      default: "defaultCover.jpg",
+    },
     about: String,
     livesIn: String,
     worksAt: String,
