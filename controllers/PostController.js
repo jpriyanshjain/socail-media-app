@@ -1,3 +1,4 @@
+import { ObjectId } from "mongodb";
 import mongoose from "mongoose";
 import postModel from "../models/postMode.js";
 import UserModel from "../models/userModel.js";
@@ -12,10 +13,12 @@ export const createPost = async (req, res, next) => {
   }
 };
 
-export const getPost = async (req, res, next) => {
+export const getPosts = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const post = await postModel.findById(id);
+    const post = await postModel.find({
+      userId: new mongoose.Types.ObjectId(id),
+    });
     if (!post) {
       res.status(404);
       throw new Error("post not found");
@@ -63,10 +66,10 @@ export const likePost = async (req, res, next) => {
     const { id: postId } = req.params;
     const { userId } = req.body;
     const post = await postModel.findById(postId);
-    // if (userId === post.userId) {
-    //   res.status(403);
-    //   throw new Error("action forbidden");
-    // }
+    if (userId === post.userId) {
+      res.status(403);
+      throw new Error("action forbidden");
+    }
     if (!post.likes.includes(userId)) {
       await post.updateOne({ $push: { likes: userId } });
       return res.status(201).json("post successfully liked");
@@ -96,9 +99,7 @@ export const getTimeLinePost = async (req, res, next) => {
           as: "followingPosts",
         },
       },
-      {
-        $sort: { createdAt: -1 },
-      },
+      { $sort: { "followingPosts.createdAt": -1 } },
       {
         $project: {
           followingPosts: 1,
@@ -106,10 +107,7 @@ export const getTimeLinePost = async (req, res, next) => {
         },
       },
     ]);
-    const timelinePosts = followingPosts[0].followingPosts.sort((a, b) => {
-      return b.createdAt - a.createdAt;
-    });
-    return res.status(200).json(timelinePosts);
+    return res.status(200).json(followingPosts[0]?.followingPosts);
   } catch (error) {
     next(error);
   }

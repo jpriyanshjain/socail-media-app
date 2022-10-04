@@ -2,7 +2,7 @@ import { Router } from "express";
 import {
   createPost,
   deletePost,
-  getPost,
+  getPosts,
   getTimeLinePost,
   likePost,
   updatePost,
@@ -11,7 +11,7 @@ import {
 const router = Router();
 
 router.post("/", createPost);
-router.get("/:id", getPost);
+router.get("/:id", getPosts);
 router.put("/:id", updatePost);
 router.delete("/:id", deletePost);
 router.put("/:id/like", likePost);
