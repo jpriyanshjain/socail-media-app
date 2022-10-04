@@ -25,7 +25,20 @@ export const getUser = async (req, res, next) => {
     const { password, ...otherDetails } = user._doc;
     return res.status(200).json(otherDetails);
   } catch (error) {
-    return res.status(500).json(error);
+    next(error);
+  }
+};
+
+export const getFollowedUser = async (req, res, next) => {
+  try {
+    const { id: userId } = req.params;
+    const followedUsers = await UserModel.findById(userId).populate(
+      "following"
+    );
+    console.log("user", followedUsers);
+    return res.status(200).json(followedUsers);
+  } catch (error) {
+    next(error);
   }
 };
 

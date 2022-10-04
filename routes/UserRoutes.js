@@ -6,13 +6,14 @@ import {
   UnFollowUser,
   updateUser,
   getAllUsers,
+  getFollowedUser,
 } from "../controllers/UserController.js";
 import authMiddleWare from "../middleware/AuthMiddleware.js";
 
 const router = Router();
-authMiddleWare;
 router.get("/", getAllUsers);
 router.get("/:id", getUser);
+router.get("/followedUser/:id", getFollowedUser);
 router.put("/:id", authMiddleWare, updateUser);
 router.delete("/:id", authMiddleWare, deleteUser);
 router.put("/:id/follow", authMiddleWare, followUser);
