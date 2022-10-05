@@ -22,8 +22,7 @@ export const registerUser = async (req, res, next) => {
         username,
         id: newUser._id,
       },
-      process.env.JWT_TOKEN,
-      { expiresIn: "1h" }
+      process.env.JWT_TOKEN
     );
     await newUser.save();
     return res.status(201).json({ user: newUser, token });
@@ -52,8 +51,7 @@ export const loginUser = async (req, res, next) => {
         username,
         id: user._id,
       },
-      process.env.JWT_TOKEN,
-      { expiresIn: "1h" }
+      process.env.JWT_TOKEN
     );
     return res.status(200).json({ user, token });
   } catch (error) {

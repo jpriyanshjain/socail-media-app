@@ -32,9 +32,15 @@ export const getUser = async (req, res, next) => {
 export const getFollowedUser = async (req, res, next) => {
   try {
     const { id: userId } = req.params;
-    const followedUsers = await UserModel.findById(userId).populate(
-      "following"
-    );
+    const followedUsers = await UserModel.findById(userId, {
+      following: 1,
+    }).populate("following", {
+      following: 0,
+      followers: 0,
+      password: 0,
+      createdAt: 0,
+      updatedAt: 0,
+    });
     console.log("user", followedUsers);
     return res.status(200).json(followedUsers);
   } catch (error) {
