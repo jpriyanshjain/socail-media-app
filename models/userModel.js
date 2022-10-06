@@ -25,11 +25,13 @@ const UserSchema = mongoose.Schema(
     },
     profilePicture: {
       type: String,
-      default: "defaultProfile.png",
+      default:
+        "http://res.cloudinary.com/dzkabey31/image/upload/v1665075963/j0t8prgyo8pdvbgfawzz.png",
     },
     coverPicture: {
       type: String,
-      default: "defaultCover.jpg",
+      default:
+        "http://res.cloudinary.com/dzkabey31/image/upload/v1665076051/mebgmyon3jvsw0tdrn3k.jpg",
     },
     about: String,
     livesIn: String,

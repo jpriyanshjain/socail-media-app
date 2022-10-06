@@ -3,13 +3,14 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
 import bodyParser from "body-parser";
+import fileUpload from "express-fileupload";
+
 import AuthRoutes from "./routes/AuthRoute.js";
 import UserRoutes from "./routes/UserRoutes.js";
 import PostRoutes from "./routes/PostRoutes.js";
 import UploadRoute from "./routes/UploadRoute.js";
 import ChatRoute from "./routes/ChatRoute.js";
-import MessageRoute from "./routes/MessageRoute.js"
-
+import MessageRoute from "./routes/MessageRoute.js";
 
 dotenv.config();
 const app = express();
@@ -17,6 +18,12 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
+app.use(
+  fileUpload({
+    limits: { fileSize: 50 * 1024 * 1024 },
+    useTempFiles: true,
+  })
+);
 
 // to serve images inside public folder
 app.use(express.static("public"));

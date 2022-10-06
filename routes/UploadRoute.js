@@ -1,20 +1,21 @@
 import { Router } from "express";
-import multer from "multer";
+import fileUpload from "express-fileupload";
+import path from "path";
+import cloudinary from "cloudinary";
+
 const router = Router();
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "public/images");
-  },
-  filename: (req, file, cb) => {
-    cb(null, req.body.name);
-  },
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
 });
-const upload = multer({ storage: storage });
 
-router.post("/", upload.single("file"), (req, res) => {
+router.post("/", async (req, res, next) => {
   try {
-    return res.status(200).json("File uploaded successfully");
+    const image = req.files.image.tempFilePath;
+    const { url } = await cloudinary.v2.uploader.upload(image);
+    res.status(201).json({ url });
   } catch (error) {
     next(error);
   }
