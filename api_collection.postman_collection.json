@@ -1,0 +1,607 @@
+{
+	"info": {
+		"_postman_id": "2bcd35eb-44af-4d7b-be59-840939a1ed6c",
+		"name": "New Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16652085"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "register user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\" : \"bittu\",\r\n    \"password\" : \"Password\",\r\n    \"firstName\" : \"bittu \",\r\n    \"lastName\" : \"jain\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/auth/register",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\" : \"pj\",\r\n    \"password\": \"test\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/auth/login",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "get user",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/user/633bc22db3c91a6dffbff7d3",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"633bc22db3c91a6dffbff7d3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update user",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"currentUserId\" : \"62ee190bf863c660e7fcdad3\",\r\n    \"currentUserAdminStatus\": false,\r\n    \"username\" : \"Priyansh@jain\",\r\n    \"firstName\": \"Priyansh\",\r\n    \"password\" : \"test@123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/user/62ee190bf863c660e7fcdad3",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"62ee190bf863c660e7fcdad3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete user",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"currentUserId\" : \"62ee3e43d79c99f005e8637e\",\r\n    \"currentUserAdminStatus\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/user/62ee3e43d79c99f005e8637e",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"62ee3e43d79c99f005e8637e"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "follow user",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"currentUserId\" : \"62ee537e06803f8e9bf494fc\",\r\n    \"_id\": \"6331f5b9c41697134be9de91\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/user/:id/follow",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								":id",
+								"follow"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "6331f613c41697134be9de95"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "unfollow user",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"currentUserId\": \"62ee536e06803f8e9bf494fa\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/user/:id/unfollow",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								":id",
+								"unfollow"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "62ee190bf863c660e7fcdad3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get follow users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/user/followedUser/:id",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"followedUser",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "633bc22db3c91a6dffbff7d3"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Post",
+			"item": [
+				{
+					"name": "create post",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\" : \"62ee190bf863c660e7fcdad3\",\r\n    \"desc\" : \"this is fromt priyansh  1   post\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/post",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"post"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get post",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/posts/:id",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"posts",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "633bc245b3c91a6dffbff7d8",
+									"description": "user ids"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update post",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\" : \"62ee536e06803f8e9bf494fa\",\r\n    \"desc\": \"This Post should be updated\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/post/:id",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"post",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "62ee629239f654527904fe80"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delte post",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": \"62ee190bf863c660e7fcdad3\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/post/:id",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"post",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "like post",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\" : \"62ee537e06803f8e9bf494fc\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/post/:id/like",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"post",
+								":id",
+								"like"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "62ee629239f654527904fe80"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get timeline post",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/posts/timeline/:id",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"posts",
+								"timeline",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "633bc22db3c91a6dffbff7d3"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Chat",
+			"item": [
+				{
+					"name": "add chat",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"senderId\":\"633bc22db3c91a6dffbff7d3\",\r\n    \"receiverId\":\"633bc245b3c91a6dffbff7d8\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/chat/",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"chat",
+								""
+							],
+							"query": [
+								{
+									"key": "senderId",
+									"value": "6331f5b9c41697134be9de91",
+									"disabled": true
+								},
+								{
+									"key": "receiverId",
+									"value": "6331f613c41697134be9de95",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "find chat",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/chat/:userId",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"chat",
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "633bc22db3c91a6dffbff7d3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "find specific request",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/chat/find/:firstId/:secondId",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"chat",
+								"find",
+								":firstId",
+								":secondId"
+							],
+							"variable": [
+								{
+									"key": "firstId",
+									"value": "6331f5b9c41697134be9de91"
+								},
+								{
+									"key": "secondId",
+									"value": "6331f613c41697134be9de95"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "message",
+			"item": [
+				{
+					"name": "add message",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"chatId\": \"63396e66ecc7fd759d6a3071\",\r\n    \"senderId\":\"6331f5b9c41697134be9de91\",\r\n    \"text\": \"how are you\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/message/",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"message",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get message",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/message/:chatId",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"message",
+								":chatId"
+							],
+							"variable": [
+								{
+									"key": "chatId",
+									"value": "63396e66ecc7fd759d6a3071"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "upload",
+			"item": [
+				{
+					"name": "single image upload",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/jpriy/Pictures/cover-default.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/upload/",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"upload",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
