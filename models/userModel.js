@@ -50,6 +50,12 @@ const UserSchema = mongoose.Schema(
         ref: "Users",
       },
     ],
+    Notifications: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Notification",
+      },
+    ],
   },
   { timestamps: true }
 );

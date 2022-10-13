@@ -1,6 +1,8 @@
 import { genSalt, hash } from "bcrypt";
-import UserModel from "../models/userModel.js";
+import { ObjectId } from "mongodb";
 import jwt from "jsonwebtoken";
+import UserModel from "../models/userModel.js";
+import NotificationModel from "../models/NotificationModel.js";
 
 export const getAllUsers = async (req, res) => {
   try {
@@ -18,7 +20,7 @@ export const getAllUsers = async (req, res) => {
 export const getUser = async (req, res, next) => {
   try {
     const id = req.params.id;
-    const user = await UserModel.findById(id);
+    const user = await UserModel.findById(id).populate("Notifications");
     if (!user) {
       return res.status(404).json({ message: "user not found" });
     }
@@ -103,9 +105,18 @@ export const followUser = async (req, res, next) => {
     }
     const followUser = await UserModel.findById(id);
     const followingUser = await UserModel.findById(currentUserId);
-
     if (!followUser.followers.includes(currentUserId)) {
-      await followUser.updateOne({ $push: { followers: currentUserId } });
+      const notificationBody = {
+        type: "Follow",
+        userId: ObjectId(id),
+        senderName: followingUser.username,
+        message: `${followingUser.username} followed you`,
+      };
+      const notification = new NotificationModel(notificationBody);
+      await notification.save();
+      await followUser.updateOne({
+        $push: { followers: currentUserId, Notifications: notification._id },
+      });
       await followingUser.updateOne({ $push: { following: id } });
     }
     return res.status(201).json({ message: "successfully followed user " });
@@ -132,6 +143,19 @@ export const UnFollowUser = async (req, res, next) => {
     await followUser.updateOne({ $pull: { followers: currentUserId } });
     await followingUser.updateOne({ $pull: { following: id } });
     return res.status(201).json({ message: "successfully unfollowed user " });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const updateNotifications = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const result = await NotificationModel.updateMany(
+      { userId: ObjectId(id) },
+      { $set: { seen: true } }
+    );
+    res.json("notification updated successfully");
   } catch (error) {
     next(error);
   }

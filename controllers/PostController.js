@@ -2,6 +2,7 @@ import { ObjectId } from "mongodb";
 import mongoose from "mongoose";
 import postModel from "../models/postMode.js";
 import UserModel from "../models/userModel.js";
+import NotificationModel from "../models/NotificationModel.js";
 
 export const createPost = async (req, res, next) => {
   try {
@@ -65,13 +66,25 @@ export const likePost = async (req, res, next) => {
   try {
     const { id: postId } = req.params;
     const { userId } = req.body;
-    const post = await postModel.findById(postId);
+    const post = await postModel.findById(ObjectId(postId));
+    const user = await UserModel.findById(ObjectId(userId));
+    console.log(postId);
+    const postOwner = await UserModel.findById(post.userId);
     if (userId === post.userId) {
       res.status(403);
       throw new Error("action forbidden");
     }
     if (!post.likes.includes(userId)) {
+      const notificationBody = {
+        type: "Like",
+        userId: ObjectId(post.userId),
+        senderName: user.username,
+        message: `${user.username} liked your post`,
+      };
+      const notification = new NotificationModel(notificationBody);
+      await notification.save();
       await post.updateOne({ $push: { likes: userId } });
+      await postOwner.updateOne({ $push: { Notifications: notification._id } });
       return res.status(201).json("post successfully liked");
     } else {
       await post.updateOne({ $pull: { likes: userId } });
